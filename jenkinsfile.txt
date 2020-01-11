@@ -1,1 +1,14 @@
-pipleline
+pipleline{
+    agent any
+    tools{
+        maven 'localmaven'
+    }
+    stages{
+        stage('build'){
+            step{
+                sh 'mvn clean package'
+                sh '/usr/local/bin/docker build . -t tomcatwebapp:${env.BUILD_ID}'
+            }
+        }
+    }
+}
